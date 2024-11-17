@@ -1,8 +1,7 @@
 ## Banking system
 
 This is the home of the Banking system.
-This project allows to integrate a simple REST API for a banking application. The API should allow users to perform basic banking operations such as creating accounts,
-making deposits, and transferring funds.
+This project allows to integrate a simple REST API for a banking application. The API should allow users to perform basic banking operations such as creating accounts, making deposits, and transferring funds.
 
 **_You must provide your own Security solution._**
 
@@ -21,6 +20,11 @@ This project is governed by the [Java of Conduct](https://www.oracle.com/java/te
 
 ### Build from Source
 See the [Build from Source](https://github.com/3OMazuruk/banking/wiki/Build-from-Source) wiki page and the `CONTRIBUTING.md` file.
+
+### Integration options
+- as library;
+- as microservice;
+- as external API.
 
 ### Technology stack
 - Java 17

@@ -1,0 +1,2 @@
+${AnsiColor.BRIGHT_YELLOW}:: 3OMBanking 💰  :: Revolutionizing Banking with Innovation ::
+:: https://github.com/3OMazuruk/banking ::${AnsiColor.DEFAULT}

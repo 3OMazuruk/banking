@@ -1,7 +1,7 @@
 ## Banking system
 
 This is the home of the Banking system.
-This project allows to integrate a simple REST API for a banking application. The API should allow users to perform basic banking operations such as creating accounts, making deposits, and transferring funds.
+This project allows to integrate a simple REST API for a banking operation. The API allows for users to perform basic banking operations such as creating accounts, making deposits, and transferring funds.
 
 **_You must provide your own Security solution._**
 

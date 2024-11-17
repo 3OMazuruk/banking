@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Transaction.
+    -->
+    <changeSet id="20241117091956-2">
+
+        <addForeignKeyConstraint baseColumnNames="source_bank_account_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction__source_bank_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bank_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="destination_bank_account_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction__destination_bank_account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bank_account"/>
+    </changeSet>
+</databaseChangeLog>

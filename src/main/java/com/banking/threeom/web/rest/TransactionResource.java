@@ -36,7 +36,7 @@ public class TransactionResource {
 
     private static final String ENTITY_NAME = "transaction";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${spring.application.name}")
     private String applicationName;
 
     private final TransactionService transactionService;

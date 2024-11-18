@@ -9,7 +9,7 @@
     <!--
         Added the entity BankAccount.
     -->
-    <changeSet id="20241117091756-1">
+    <changeSet id="20241117091756-1" author="3om (generated)">
         <createTable tableName="bank_account">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -46,7 +46,7 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20241117091756-1-data" context="faker">
+    <changeSet id="20241117091756-1-data" context="faker" author="3om (generated)">
         <loadData
                   file="config/liquibase/fake-data/bank_account.csv"
                   separator=";"

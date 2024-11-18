@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Transaction.
     -->
-    <changeSet id="20241117091956-2">
+    <changeSet id="20241117091956-2" author="3om (generated)">
 
         <addForeignKeyConstraint baseColumnNames="source_bank_account_id"
                                  baseTableName="transaction"

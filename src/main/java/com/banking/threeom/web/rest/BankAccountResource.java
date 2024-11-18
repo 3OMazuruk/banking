@@ -36,7 +36,7 @@ public class BankAccountResource {
 
     private static final String ENTITY_NAME = "bankAccount";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${spring.application.name}")
     private String applicationName;
 
     private final BankAccountService bankAccountService;

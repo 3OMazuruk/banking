@@ -36,7 +36,7 @@ public class BalanceResource {
 
     private static final String ENTITY_NAME = "balance";
 
-    @Value("${jhipster.clientApp.name}")
+    @Value("${spring.application.name}")
     private String applicationName;
 
     private final BalanceService balanceService;

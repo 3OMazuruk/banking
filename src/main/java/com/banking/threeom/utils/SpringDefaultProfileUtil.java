@@ -22,7 +22,10 @@ public class SpringDefaultProfileUtil {
     public static final String SPRING_PROFILE_PRODUCTION = "prod";
     /** Spring profile used when deploying with Spring Cloud (used when deploying to CloudFoundry)
      Constant <code>SPRING_PROFILE_CLOUD="cloud"</code> */
-    public static final String SPRING_PROFILE_CLOUD = "cloud";
+    public static final String SPRING_PROFILE_CLOUD = "cloud";/** Spring profile used when deploying with Spring Cloud (used when deploying to CloudFoundry)
+    /** Spring profile used to disable running liquibase
+     Constant <code>SPRING_PROFILE_NO_LIQUIBASE="no-liquibase"</code> */
+    public static final String SPRING_PROFILE_NO_LIQUIBASE = "no-liquibase";
 
     private SpringDefaultProfileUtil() {
     }

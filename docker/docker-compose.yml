@@ -1,0 +1,79 @@
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+version: '3.8'
+services:
+  banking_3om-postgresql:
+    image: postgres:14.5
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - PGDATA=${PG_DATA}
+    volumes:
+      - ${VOLUME_DATA_PATH}/pgdata_ banking_3om:${PG_DATA}
+      - ${VOLUME_LOG_PATH}/postgresql_ banking_3om:/var/lib/postgresql/data/pgdata/log
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 127.0.0.1:5432:5432
+
+  banking_3om-pgadmin4:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    volumes:
+      - ${VOLUME_DATA_PATH}/pgadmin4:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_USER}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASS}
+
+  banking_3om-redis:
+    image: redis:6.2.7
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 127.0.0.1:6379:6379
+
+  banking_3om-grafana:
+    image: grafana/grafana:9.2.4
+    restart: unless-stopped
+    depends_on:
+      - db
+    user: 'root'
+    environment:
+      - GF_SERVER_ROOT_URL=${SCHEME}://${GRAFANA_SUB_DOMAIN}.${HOST}:${PORT}
+
+      - GF_LOG_MODE=console file
+      - GF_LOG_LEVEL=debug
+      - GF_LOG_FILTERS=alerting.scheduler:info migrator:info auth:info
+
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_SUPERADMIN}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+
+      - GF_AUTH_BASIC_ENABLED=false
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_AUTH_OAUTH_AUTO_LOGIN=true
+      - GF_AUTH_DISABLE_SIGNOUT_MENU=false
+
+      - GF_AUTH_JWT_ENABLED=true
+      - GF_AUTH_JWT_URL_LOGIN=true
+      - GF_AUTH_JWT_HEADER_NAME=Grafana-JWT-Token
+      - GF_AUTH_JWT_EMAIL_CLAIM=email
+      - GF_AUTH_JWT_USERNAME_CLAIM=sub
+      - GF_AUTH_JWT_ROLE_ATTRIBUTE_PATH=contains(auth, 'ROLE_ADMIN') && 'Admin' || contains(auth, 'ROLE_GRAFANA_EDITOR') && 'Editor' || 'Viewer'
+      - GF_AUTH_JWT_CACHE_TTL=60m
+      - GF_AUTH_JWT_AUTO_SIGN_UP=true
+      - GF_AUTH_JWT_KEY_FILE=/keys/private_key.pem
+
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+
+      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_PATHS_LOGS=/var/log/grafana
+    volumes:
+      - ${VOLUME_DATA_PATH}/grafana:/var/lib/grafana
+      - ${VOLUME_LOG_PATH}/grafana:/var/log/grafana
+      - ./grafana/dashboards:/usr/share/grafana/public/dashboards:ro
+      - ./grafana/pkey/private_key.pem:/keys/private_key.pem
+    ports:
+      - 3000:3000

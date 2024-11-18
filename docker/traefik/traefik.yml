@@ -1,0 +1,18 @@
+# Dynamic configuration
+#serversTransport:
+#  rootCAs:
+#    - "/certs/ca.crt"
+
+tls:
+  certificates:
+    - certFile: "/certs/certs.pem"
+      keyFile: "/certs/key.pem"
+      stores:
+        - default
+
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: "/certs/certs.pem"
+        keyFile: "/certs/key.pem"

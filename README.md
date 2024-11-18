@@ -15,6 +15,12 @@ This project allows to integrate a simple REST API for a banking operation. The 
   - Withdraw funds from an account.
   - Transfer funds between two accounts.
 
+### Short info
+* [Contributing to the Banking](https://github.com/3OMazuruk/banking/blob/master/CONVENTIONS.md)
+* [Build from Source](https://github.com/3OMazuruk/banking/wiki/Build-from-Source)
+* [Architecture](https://github.com/3OMazuruk/banking/wiki/Architecture)
+* [License](https://github.com/3OMazuruk/banking/blob/master/LICENSE)
+
 ### Code of Conduct
 This project is governed by the [Java of Conduct](https://www.oracle.com/java/technologies/javase/codeconventions-contents.html). By participating you are expected to uphold this code.
 

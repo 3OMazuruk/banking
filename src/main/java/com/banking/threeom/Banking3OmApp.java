@@ -1,6 +1,5 @@
 package com.banking.threeom;
 
-import com.banking.threeom.config.ApplicationProperties;
 import com.banking.threeom.config.CRLFLogConverter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -22,7 +21,7 @@ import org.springframework.core.env.Environment;
 import static com.banking.threeom.utils.SpringDefaultProfileUtil.*;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
+@EnableConfigurationProperties({ LiquibaseProperties.class})
 public class Banking3OmApp {
 
     private static final Logger log = LoggerFactory.getLogger(Banking3OmApp.class);

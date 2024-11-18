@@ -3,13 +3,14 @@ package com.banking.threeom.web.rest;
 import com.banking.threeom.repository.BalanceRepository;
 import com.banking.threeom.service.BalanceService;
 import com.banking.threeom.service.dto.BalanceDTO;
+import com.banking.threeom.utils.HeaderUtil;
+import com.banking.threeom.utils.PaginationUtil;
 import com.banking.threeom.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -21,10 +22,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.PaginationUtil;
-import tech.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.banking.threeom.domain.Balance}.
@@ -65,7 +64,7 @@ public class BalanceResource {
         BalanceDTO result = balanceService.save(balanceDTO);
         return ResponseEntity
             .created(new URI("/api/balances/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, ENTITY_NAME + result.getId().toString()))
             .body(result);
     }
 
@@ -99,7 +98,7 @@ public class BalanceResource {
         BalanceDTO result = balanceService.update(balanceDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, balanceDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, ENTITY_NAME + balanceDTO.getId().toString()))
             .body(result);
     }
 
@@ -133,10 +132,8 @@ public class BalanceResource {
 
         Optional<BalanceDTO> result = balanceService.partialUpdate(balanceDTO);
 
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, balanceDTO.getId().toString())
-        );
+        return result.map(response -> ResponseEntity.ok().body(response))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     /**
@@ -171,7 +168,8 @@ public class BalanceResource {
     public ResponseEntity<BalanceDTO> getBalance(@PathVariable Long id) {
         log.debug("REST request to get Balance : {}", id);
         Optional<BalanceDTO> balanceDTO = balanceService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(balanceDTO);
+        return balanceDTO.map(response -> ResponseEntity.ok().body(response))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     /**
@@ -186,7 +184,7 @@ public class BalanceResource {
         balanceService.delete(id);
         return ResponseEntity
             .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, ENTITY_NAME + id.toString()))
             .build();
     }
 }
